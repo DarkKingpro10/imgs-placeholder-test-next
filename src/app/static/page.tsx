@@ -3,10 +3,25 @@ import { generateBlurPlaceholderSVG } from "@/shared/utils/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 
-const metadata: Metadata = {
-	title: "Static Placeholder",
+export const metadata = {
+	title: "Image Gallery Without Placeholder | UX & Performance Analysis",
 	description:
-		"This page shows a static placeholder that is pre-configured and doesn't change, this technique is the most basic and simple to implement, but it doesn't provide a good user experience since the placeholder doesn't match the image that is going to be loaded, this can be solved by using a more advanced technique like skeleton or blur placeholders",
+		"Learn the impact of not using image placeholders in Next.js. Understand how empty loading states affect UX, perceived performance, and why static placeholders can be a zero-cost improvement.",
+	keywords: [
+		"Next.js images",
+		"no placeholder",
+		"image loading UX",
+		"web performance",
+		"SEO optimization",
+		"lazy loading images",
+		"image placeholders comparison",
+	],
+	openGraph: {
+		title: "No Placeholder vs Static Placeholder in Next.js",
+		description:
+			"A practical comparison showing how skipping placeholders impacts user experience and perceived performance in image-heavy interfaces.",
+		type: "article",
+	},
 };
 
 // Static placeholders are pre-configured and don't change. Generate a larger,
@@ -42,16 +57,33 @@ export default function StaticPlaceholder() {
 					Explanation of the image gallery with a static SVG.
 				</h2>
 				<p>
-					When no placeholder is used, the image area remains visually empty
-					while the resource is loading. This creates a perception that the page
-					has little or no content, even though the layout has already been
-					rendered. Because there is no visual feedback during the loading
-					phase, users may interpret the interface as incomplete or slow. The
-					content suddenly appears only after each image finishes loading, which
-					can feel abrupt and negatively affect the overall user experience.
-					Placeholders help bridge this gap by reserving visual space and
-					providing a preview or loading state, making the interface feel faster
-					and more responsive even if the actual loading time remains the same.
+					Compared to not having a placeholder, a static placeholder represents
+					a meaningful improvement. Because it is pre-generated and embedded
+					(for example, as a small base64-encoded SVG), it does not introduce
+					additional network requests. This means it appears instantly,
+					providing immediate visual feedback without adding runtime overhead.
+					From a performance and SEO perspective, this makes static placeholders
+					a very efficient solution: they improve perceived loading speed while
+					keeping the actual loading cost effectively unchanged.
+				</p>
+
+				<p>
+					However, static placeholders are still a compromise. Since they do not
+					reflect the actual image content, they can feel generic and
+					disconnected from what is about to load. More advanced techniques—such
+					as blur placeholders generated from the real image or dominant color
+					extraction—offer a more cohesive and visually accurate experience.
+					These approaches improve perceived quality but may require additional
+					processing or build-time computation.
+				</p>
+
+				<p>
+					In practice, static placeholders are best understood as a low-cost
+					enhancement: they are significantly better than having no placeholder
+					at all, especially when prioritizing simplicity, performance, and SEO.
+					However, they are not the most refined solution available and are
+					typically outperformed by more dynamic or content-aware placeholder
+					strategies.
 				</p>
 			</section>
 		</>
