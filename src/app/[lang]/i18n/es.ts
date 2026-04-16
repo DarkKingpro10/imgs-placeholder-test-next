@@ -1,0 +1,57 @@
+const es = {
+	nav: {
+		home: "Inicio",
+		noPlaceholder: "Sin placeholder",
+		static: "Estática",
+		switchTo: "English",
+	},
+	home: {
+		eyebrow: "Demo de imágenes internacionalizada",
+		title: "Compara estrategias de carga de imágenes en inglés o en español.",
+		description:
+			"Esta galería muestra la diferencia entre cargar imágenes sin placeholder y usar un placeholder SVG estático. Cambia de idioma desde la navegación superior y las rutas seguirán localizadas.",
+		primaryCta: "Abrir galería sin placeholder",
+		secondaryCta: "Abrir galería con placeholder estático",
+		featureTitle: "Qué se traduce",
+		features: [
+			"Etiquetas de navegación",
+			"Títulos y textos explicativos",
+			"Texto del botón de recargar",
+		],
+	},
+	noPlaceholder: {
+		title: "Galería de imágenes - Sin placeholder",
+		description:
+			"La cuadrícula permanece vacía mientras carga cada imagen, así que la página se percibe incompleta aunque el diseño ya esté montado.",
+		linkLabel: "Ver explicación",
+		reloadLabel: "Recargar página",
+		explanationTitle: "Explicación de la galería de imágenes sin placeholders.",
+		paragraphs: [
+			"Cuando no se usa un placeholder, el área de la imagen permanece visualmente vacía mientras el recurso está cargando. Esto da la impresión de que la página tiene poco o ningún contenido, aunque el diseño ya se haya renderizado.",
+			"Como no hay retroalimentación visual durante la carga, los usuarios pueden interpretar la interfaz como incompleta o lenta. El contenido aparece de golpe cuando termina de cargar cada imagen, y eso puede sentirse brusco y afectar negativamente la experiencia general.",
+			"Los placeholders ayudan a cerrar esa brecha porque reservan espacio visual y ofrecen una vista previa o estado de carga, haciendo que la interfaz se sienta más rápida y más reactiva aunque el tiempo real de carga no cambie.",
+		],
+		metaTitle: "Galería de imágenes sin placeholder | Análisis UX",
+		metaDescription:
+			"Mira cómo un estado de carga vacío afecta la percepción de velocidad y por qué los placeholders mejoran la experiencia.",
+	},
+	static: {
+		title: "Galería de imágenes - SVG estático",
+		description:
+			"Un SVG incrustado y sencillo da a cada imagen un estado de carga visible sin añadir una petición extra.",
+		linkLabel: "Ver explicación",
+		reloadLabel: "Recargar página",
+		explanationTitle: "Explicación de la galería de imágenes con un SVG estático.",
+		paragraphs: [
+			"Frente a no tener placeholder, un placeholder estático supone una mejora clara. Como se pre-genera y se incrusta como un SVG pequeño codificado en base64, no introduce peticiones adicionales.",
+			"Eso hace que aparezca al instante y proporcione retroalimentación visual inmediata sin añadir sobrecarga en tiempo de ejecución. Desde el punto de vista del rendimiento y el SEO, es una solución muy eficiente: mejora la velocidad percibida sin cambiar prácticamente el coste real de carga.",
+			"Aun así, los placeholders estáticos siguen siendo un compromiso. Como no reflejan el contenido real de la imagen, pueden sentirse genéricos y desconectados de lo que va a cargarse. Técnicas más avanzadas, como blur placeholders generados a partir de la propia imagen o la extracción del color dominante, ofrecen una experiencia más coherente y precisa.",
+			"En la práctica, los placeholders estáticos funcionan muy bien como una mejora de bajo coste: son claramente mejores que no usar nada, sobre todo cuando se priorizan la simplicidad, el rendimiento y el SEO.",
+		],
+		metaTitle: "Galería de imágenes con placeholder estático | Análisis UX",
+		metaDescription:
+			"Compara un placeholder SVG estático con un estado de carga vacío y comprueba por qué ayuda la retroalimentación visual.",
+	},
+} as const;
+
+export default es;

@@ -1,6 +1,10 @@
 "use client";
 
-export default function ReloadButton() {
+export default function ReloadButton({
+	label,
+}: {
+	label: string;
+}) {
 
 	const refresh = () => {
 		window.location.reload();
@@ -9,9 +13,9 @@ export default function ReloadButton() {
 		<button
 			onClick={refresh}
 			type="button"
-			className="underline p-2 text-sm bg-foreground text-background rounded-full cursor-pointer"
+			className="cursor-pointer rounded-full bg-foreground p-2 text-sm text-background underline"
 		>
-			Reload page
+			{label}
 		</button>
 	);
 }
