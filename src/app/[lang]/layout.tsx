@@ -1,6 +1,6 @@
 import LangHeader from "./components/header";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { hasLocale, locales } from "./dictionaries";
 
 export async function generateStaticParams() {
@@ -23,7 +23,7 @@ export default async function LangLayout({
 	const { lang } = await params;
 
 	if (!hasLocale(lang)) {
-		notFound();
+		redirect("/en");
 	}
 
 	return (

@@ -3,7 +3,7 @@ import { generateBlurPlaceholderSVG } from "@/shared/utils/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getDictionary, hasLocale } from "../dictionaries";
+import { getDictionary, hasLocale, Locale } from "../dictionaries";
 
 const PRODUCT_BLUR_DATA_URL = generateBlurPlaceholderSVG();
 
@@ -29,13 +29,9 @@ export async function generateMetadata({
 export default async function StaticPlaceholder({
 	params,
 }: Readonly<{
-	params: Promise<{ lang: string }>;
+	params: Promise<{ lang: Locale }>;
 }>) {
 	const { lang } = await params;
-
-	if (!hasLocale(lang)) {
-		notFound();
-	}
 
 	const dictionary = await getDictionary(lang);
 
@@ -71,7 +67,10 @@ export default async function StaticPlaceholder({
 					{dictionary.static.explanationTitle}
 				</h2>
 				{dictionary.static.paragraphs.map((paragraph) => (
-					<p key={paragraph} className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">
+					<p
+						key={paragraph}
+						className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300"
+					>
 						{paragraph}
 					</p>
 				))}

@@ -2,7 +2,7 @@ import HeaderPage from "@/shared/ui/header-page";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, hasLocale } from "../dictionaries";
+import { getDictionary, hasLocale, Locale } from "../dictionaries";
 
 export async function generateMetadata({
 	params,
@@ -26,13 +26,9 @@ export async function generateMetadata({
 export default async function Page({
 	params,
 }: Readonly<{
-	params: Promise<{ lang: string }>;
+	params: Promise<{ lang: Locale }>;
 }>) {
 	const { lang } = await params;
-
-	if (!hasLocale(lang)) {
-		notFound();
-	}
 
 	const dictionary = await getDictionary(lang);
 
