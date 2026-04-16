@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
 		localPatterns: [
 			{
 				// Patrón más explícito para la API de imágenes lentas
+				pathname: "/api/slow-image/**",
+			},
+			{
 				pathname: "/api/slow-image",
 			},
 		],

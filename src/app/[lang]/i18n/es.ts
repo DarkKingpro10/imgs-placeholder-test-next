@@ -3,6 +3,7 @@ const es = {
 		home: "Inicio",
 		noPlaceholder: "Sin placeholder",
 		static: "Estática",
+		dynamicPlaceholder: "Dinámica",
 		switchTo: "English",
 	},
 	home: {
@@ -51,6 +52,23 @@ const es = {
 		metaTitle: "Galería de imágenes con placeholder estático | Análisis UX",
 		metaDescription:
 			"Compara un placeholder SVG estático con un estado de carga vacío y comprueba por qué ayuda la retroalimentación visual.",
+	},
+	dynamicPlaceholder: {
+		title: "Galería de imágenes - Placeholder dinámico",
+		description:
+			"Cada tarjeta usa un blur placeholder generado desde la imagen real con plaiceholder.",
+		linkLabel: "Ver explicación",
+		reloadLabel: "Recargar página",
+		explanationTitle:
+			"Explicación de la galería de imágenes con un blur placeholder dinámico.",
+		paragraphs: [
+			"Esta demo usa un placeholder generado a partir de la propia imagen en vez de un SVG genérico. La vista borrosa se deriva del recurso real, así que el estado de carga se siente mucho más cercano al contenido final.",
+			"Para simular una lista real de API, la página itera sobre un conjunto estable de ids de imagen y cada tarjeta obtiene su imagen correspondiente desde picsum.photos. Así la galería se comporta como un dataset predecible, pero los placeholders se calculan dinámicamente.",
+			"Este enfoque es útil cuando quieres la calidad percibida de un blur placeholder sin tener que crear imágenes estáticas a mano. Es más costoso que un SVG simple, pero normalmente ofrece una mejor coincidencia visual.",
+		],
+		metaTitle: "Galería de imágenes con placeholder dinámico | Análisis UX",
+		metaDescription:
+			"Mira cómo plaiceholder crea blur placeholders desde la imagen real y compara la experiencia de carga.",
 	},
 } as const;
 

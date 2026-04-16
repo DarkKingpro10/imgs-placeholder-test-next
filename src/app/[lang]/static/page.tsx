@@ -2,7 +2,6 @@ import HeaderPage from "@/shared/ui/header-page";
 import { generateBlurPlaceholderSVG } from "@/shared/utils/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, Locale } from "../dictionaries";
 
 const PRODUCT_BLUR_DATA_URL = generateBlurPlaceholderSVG();

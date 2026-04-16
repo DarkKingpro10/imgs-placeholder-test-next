@@ -3,6 +3,7 @@ const en = {
 		home: "Home",
 		noPlaceholder: "No placeholder",
 		static: "Static",
+		dynamicPlaceholder: "Dynamic",
 		switchTo: "Español",
 	},
 	home: {
@@ -51,6 +52,23 @@ const en = {
 		metaTitle: "Image Gallery With Static Placeholder | UX analysis",
 		metaDescription:
 			"Compare a static SVG placeholder with an empty loading state and see why the visual fallback helps.",
+	},
+	dynamicPlaceholder: {
+		title: "Image Gallery - Dynamic Placeholder",
+		description:
+			"Each tile uses a blur placeholder generated from the real image with plaiceholder.",
+		linkLabel: "See explanation",
+		reloadLabel: "Reload page",
+		explanationTitle:
+			"Explanation of the image gallery with a dynamic blur placeholder.",
+		paragraphs: [
+			"This demo uses a placeholder generated from the actual image source instead of a generic SVG. The blur preview is derived from the real asset, which makes the loading state feel closer to the final content.",
+			"To simulate a real API list, the page iterates over a stable set of image ids and each tile fetches its corresponding image from picsum.photos. That way the gallery behaves like a predictable dataset, but the placeholders are still computed dynamically.",
+			"This approach is useful when you want the perceived quality of a blur placeholder without handcrafting static images. It is more expensive than a plain SVG placeholder, but it usually gives a better visual match.",
+		],
+		metaTitle: "Image Gallery With Dynamic Placeholder | UX analysis",
+		metaDescription:
+			"See how plaiceholder creates blur placeholders from the real image and compare the loading experience.",
 	},
 } as const;
 
