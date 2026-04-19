@@ -69,6 +69,43 @@ const en = {
 		metaTitle: "Image Gallery With Dynamic Placeholder | UX analysis",
 		metaDescription:
 			"See how plaiceholder creates blur placeholders from the real image and compare the loading experience.",
+			// Extended, localized content used in the page detailed explanation
+			detailed: {
+				intro: "For authoring and review, use DevTools network throttling (e.g. 'Slow 3G') or a manual browser delay to make the blur placeholder and transition visually apparent.",
+				trickSummary: "This demo intentionally serves the first set of images without artificial latency and the second set with a small, controlled delay so the blur placeholder is visible; without the delay the transition is often imperceptible on fast connections.",
+				howItWorks: "A blur placeholder is rendered first (typically a tiny base64-encoded image, 'blurDataURL') while the full-resolution image loads in the background. Once the real asset finishes loading, the placeholder is swapped out via a smooth transition (opacity/scale) to avoid jarring changes.",
+				bufferExplanation: "The Buffer holds the binary thumbnail server-side. Converting that Buffer to base64 and inlining it as a data URL lets the browser paint a visual placeholder immediately without extra network requests.",
+				evaluationTitle: "Should you use a placeholder library?",
+				advantages: [
+					"Improves perceived load time by showing visual content immediately.",
+					"Reduces layout shift when placeholders match image dimensions.",
+					"Automates thumbnail and blurDataURL generation, reducing manual work.",
+					"Provides a notably better UX for image-centric pages (galleries, products, hero images).",
+				],
+				disadvantages: [
+					"Adds pipeline complexity (thumbnail generation, caching, storage).",
+					"Small extra bytes for inlined blurDataURL, typically negligible next to full images.",
+					"If thumbnails are generated on-the-fly without cache, CPU and I/O costs can grow.",
+					"Requires disciplined caching or CDN integration to avoid backend load spikes.",
+				],
+				costsImpact: "The base64 placeholder itself is a small overhead in bytes. The real cost driver is how thumbnails are produced: pre-generated or build-time thumbnails have minimal recurring cost; on-demand generation increases CPU and latency. Use cache/CDN or precompute thumbnails to control costs.",
+				bestPractices: [
+					"Pre-generate thumbnails at upload or build time and serve them from a CDN.",
+					"Set aggressive cache headers for generated thumbnails and transformed assets.",
+					"Avoid on-demand server-side thumbnail generation on high-traffic endpoints without a queue or worker system.",
+					"Measure LCP/CLS and validate that placeholders materially improve perceived UX for your users.",
+				],
+				whenToUse: [
+					"Image-first pages where visuals drive engagement (galleries, product lists, hero images).",
+					"When layout stability (low CLS) and perceived performance are priorities.",
+				],
+				whenNotToUse: [
+					"Decorative images with negligible UX impact.",
+					"Environments with extremely constrained infra and no CDN where generating thumbnails would be cost-prohibitive.",
+				],
+				recommendation: "Recommended for image-centric experiences when paired with caching/CDN and pre-generated thumbnails. Avoid artificial delays in production; use them only for demos or QA.",
+				conclusion: "Blur placeholders are recommended when visual quality matters. Prefer a proven library that automates blurDataURL generation and combine it with caching or CDN transforms to minimize runtime cost.",
+			},
 	},
 } as const;
 

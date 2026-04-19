@@ -3,23 +3,25 @@ import type { ImageProps } from "next/image";
 import ImageWithPlaceholder from "./ImageWithPlaceholder";
 
 type Props = Omit<ImageProps, "src" | "placeholder" | "blurDataURL"> & {
-  seed: number;
+	seed: number;
+	withTrick?: boolean;
 };
 
 export default async function PlaiceholderImage({
-  seed,
-  alt,
-  ...rest
+	seed,
+	alt,
+	withTrick,
+	...rest
 }: Props) {
-  const imageSrc = `https://picsum.photos/id/${seed}/200/300`;
-  const { base64 } = await getBlurPlaceholderImage(imageSrc);
+	const imageSrc = `https://picsum.photos/id/${seed}/200/300`;
+	const { base64 } = await getBlurPlaceholderImage(imageSrc);
 
-  return (
-    <ImageWithPlaceholder
-      {...rest}
-      src={`/api/slow-image/${seed}`}
-      alt={alt}
-      blurDataURL={base64}
-    />
-  );
+	return (
+		<ImageWithPlaceholder
+			{...rest}
+			{...(withTrick ? { src: imageSrc } : { src: `/api/slow-image/${seed}` })}
+			alt={alt}
+			blurDataURL={base64}
+		/>
+	);
 }

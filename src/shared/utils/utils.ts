@@ -1,3 +1,4 @@
+import { getPlaiceholder } from "plaiceholder";
 /**
  * Generates a blur placeholder SVG with customizable colors.
  * We use base64 encoding because Nextjs use Data URL so it needs to be a string coded in base64, and this way we can generate the SVG on the fly and use it as a placeholder for our images, this technique is useful when we don't have a pre-generated placeholder for our images, and we want to generate a placeholder that matches the colors of our website.
@@ -9,8 +10,6 @@
  * @param options.color3 The third color in the gradient (default: "#e2e8f0").
  * @returns A data URL for the generated SVG.
  */
-
-import { getPlaiceholder } from "plaiceholder";
 
 export function generateBlurPlaceholderSVG({
 	color1 = "#e5e7eb",
