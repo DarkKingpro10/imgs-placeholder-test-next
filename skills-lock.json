@@ -15,6 +15,11 @@
       "source": "JuliusBrussee/caveman",
       "sourceType": "github",
       "computedHash": "368a26f2b079ffe0d584f48006524f65cf997cb9369411aa8c6ead216dee22eb"
+    },
+    "nextjs-seo": {
+      "source": "laguagu/claude-code-nextjs-skills",
+      "sourceType": "github",
+      "computedHash": "30cde3dd3fb76e54e4eb51027cfae28a15480ae76e2cfb32e5508a1a0d99ff78"
     }
   }
 }

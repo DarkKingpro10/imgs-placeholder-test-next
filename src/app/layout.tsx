@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
@@ -17,6 +17,21 @@ export const metadata: Metadata = {
 	title: "Image Placeholder Test",
 	description:
 		"See how you can improve UX with image placeholders, in this website we use different techniques to generate image placeholders, so you can compare them and choose the one that best suits your needs",
+	metadataBase: new URL('https://your-site.com'),
+	alternates: {
+		canonical: '/',
+	},
+	robots: {
+		index: true,
+		follow: true,
+	},
+};
+
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	maximumScale: 5,
+	userScalable: true,
 };
 
 export default async function RootLayout({

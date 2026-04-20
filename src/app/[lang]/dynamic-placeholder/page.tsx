@@ -56,7 +56,12 @@ export async function getBlurPlaceholderImage(src) {
 				linkLabel={dictionary.dynamicPlaceholder.linkLabel}
 				reloadLabel={dictionary.dynamicPlaceholder.reloadLabel}
 			/>
-			<h3 className="text-xl">0 tricks</h3>
+			<h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+				{dictionary.dynamicPlaceholder.heroTitle}
+			</h3>
+			<p className="max-w-3xl text-sm leading-7 text-zinc-600 dark:text-zinc-400">
+				{dictionary.dynamicPlaceholder.heroParagraph}
+			</p>
 			<section className="grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-4">
 				{imageSeeds.map((seed) => (
 					<div
@@ -75,7 +80,17 @@ export async function getBlurPlaceholderImage(src) {
 					</div>
 				))}
 			</section>
-			<h3 className="text-xl">Lag trick</h3>
+			<h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+				{dictionary.dynamicPlaceholder.listTitle}
+			</h3>
+			<ul className="space-y-2 text-sm leading-7 text-zinc-600 dark:text-zinc-400">
+				{dictionary.dynamicPlaceholder.listItems.map((item) => (
+					<li key={item} className="flex gap-3">
+						<span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+						<span>{item}</span>
+					</li>
+				))}
+			</ul>
 			<section className="grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-4">
 				{imageSeeds.map((seed) => (
 					<div
@@ -122,8 +137,8 @@ export async function getBlurPlaceholderImage(src) {
 
 							<section className="mb-8">
 								<h4 className="text-lg font-semibold mb-2 text-fuchsia-700 dark:text-fuchsia-400">{lang === "es" ? "Fragmento de implementación (servidor)" : "Server implementation snippet"}</h4>
-								<div className="relative bg-zinc-900 rounded-lg p-4 overflow-x-auto mb-2">
-									<pre className="whitespace-pre-wrap break-words font-mono text-xs text-zinc-100"><code aria-label="server-snippet">{serverSnippet}</code></pre>
+								<div className="relative mb-2 overflow-x-auto rounded-lg bg-zinc-900 p-4">
+									<pre className="whitespace-pre-wrap wrap-break-word font-mono text-xs text-zinc-100"><code aria-label="server-snippet">{serverSnippet}</code></pre>
 								</div>
 								<p className="text-xs text-zinc-500 italic mb-0">{lang === "es" ? "Este fragmento muestra cómo se genera el blurDataURL en el backend para el placeholder." : "This snippet shows how to generate the blurDataURL on the backend for the placeholder."}</p>
 								{/* Nota traducida desde el diccionario */}

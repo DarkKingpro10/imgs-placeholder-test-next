@@ -43,3 +43,23 @@ body {
 .animate-shimmer {
   animation: shimmer 1.5s infinite;
 }
+
+@keyframes scaleShow {
+  from {
+    opacity: 0;
+    scale: 10%;
+  }
+
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+
+.scroll-animation-scaleShow {
+  view-timeline-name: --scaleShow;
+  animation-name: scaleShow;
+  animation-fill-mode: both;
+  animation-timeline: --scaleShow;
+  animation-range: entry 0% cover 50%;
+}

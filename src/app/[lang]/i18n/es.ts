@@ -27,7 +27,7 @@ const es = {
 		eyebrow: "Demo de imágenes internacionalizada",
 		title: "Imágenes responsivas, placeholders y experiencia de carga",
 		description:
-			"Empieza aquí si quieres una guía práctica de imágenes responsivas. El artículo compara enfoques con Next.js y sin Next.js, muestra dónde ayuda un placeholder y destaca los ajustes que evitan saltos de layout.",
+			"Empieza aquí si quieres una guía práctica de imágenes responsivas. El artículo se enfoca en las características de Image en Next.js, como fill y sizes, y luego muestra cómo aplicar las mismas reglas de tamaño con HTML y CSS en cualquier stack.",
 		primaryCta: "Leer la guía",
 		secondaryCta: "Ir a las demos",
 		featureTitle: "Qué cubre este post",
@@ -77,6 +77,18 @@ const es = {
 		closingTitle: "Primero el layout, luego la entrega",
 		closingParagraph:
 			"Ese orden es lo que hace que las páginas con muchas imágenes se sientan rápidas. Primero reservas espacio, luego eliges el origen responsive correcto y después decides si un blur, color o skeleton aporta valor.",
+		plaiceholderTitle: "Por qué usamos Plaiceholder",
+		plaiceholderParagraph:
+			"Plaiceholder sirve también fuera de Next.js. En este proyecto elegí una implementación nativa en servidor en lugar de la integración específica para Next porque ese paquete modifica el config interno de Next.js y la librería ya está en estado feature-complete, así que preferí más control sobre la configuración. Aquí están los docs si quieres comparar enfoques.",
+		plaiceholderLinkLabel: "Leer la documentación de Plaiceholder",
+		plaiceholderLinkHref: "https://plaiceholder.co/docs",
+		recommendationTitle: "Cómo probar las demos",
+		recommendationMobile:
+			"En mobile, usa el botón de recargar en cada demo para limpiar la cache de imágenes antes de comparar estados.",
+		recommendationDesktop:
+			"En computadora, usa el mismo paso. Si la transición sigue yendo muy rápido, baja la velocidad de red en DevTools con un perfil como Slow 3G.",
+		recommendationReason:
+			"Agregamos un delay artificial pequeño a las imágenes por defecto para que los placeholders, blur states y transiciones de carga sean visibles durante la demo. Sin ese delay, en conexiones rápidas el efecto casi no se nota.",
 	},
 	noPlaceholder: {
 		title: "Galería de imágenes - Sin placeholder",
@@ -102,6 +114,15 @@ const es = {
 		reloadLabel: "Recargar página",
 		explanationTitle:
 			"Explicación de la galería de imágenes con un SVG estático.",
+		introTitle: "Por qué funciona este fallback",
+		introParagraphs: [
+			"Un placeholder SVG estático es un buen punto medio cuando quieres un estado de carga visible sin traer un recurso extra. Mantiene la tarjeta estable, da algo que leer a la vista y evita la sensación vacía de un espacio sin imagen.",
+			"No es consciente del contenido, así que conviene mantenerlo simple. La fuerza de este enfoque está en la previsibilidad: payload pequeño, pintura inmediata y casi nada de piezas móviles.",
+		],
+		exampleTitle: "Ejemplo práctico en Next.js",
+		exampleNote:
+			"Usa el mismo aspect ratio que la imagen final, conserva sizes precisos y alimenta blurDataURL con un SVG compacto o data URL generada. Esto puede vivir en una función como generateBlurPlaceholderSVG o en un objeto estático cuando quieres el mismo fallback para todas las imágenes.",
+		exampleCode: `<div className=\"relative aspect-square overflow-hidden rounded-xl\">\n  <Image\n    src=\"/api/slow-image?seed=1\"\n    alt=\"Imagen de portada\"\n    fill\n    sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    placeholder=\"blur\"\n    blurDataURL={PRODUCT_BLUR_DATA_URL}\n    className=\"object-cover\"\n  />\n</div>`,
 		paragraphs: [
 			"Frente a no tener placeholder, un placeholder estático supone una mejora clara. Como se pre-genera y se incrusta como un SVG pequeño codificado en base64, no introduce peticiones adicionales.",
 			"Eso hace que aparezca al instante y proporcione retroalimentación visual inmediata sin añadir sobrecarga en tiempo de ejecución. Desde el punto de vista del rendimiento y el SEO, es una solución muy eficiente: mejora la velocidad percibida sin cambiar prácticamente el coste real de carga.",
@@ -121,8 +142,17 @@ const es = {
 		metaTitle: "Galería con carga Skeleton | Análisis UX",
 		metaDescription:
 			"Explora la carga mediante skeletons para imágenes y los trade-offs frente a otras técnicas de placeholder.",
-		introTitle: "¿Qué es este enfoque?",
+		introTitle: "Por qué los skeletons siguen siendo útiles",
 		introParagraphs: [
+			"Los skeletons funcionan bien cuando importa más reservar el marco del contenido que mostrar una previsualización concreta. Mantienen la estructura visible, reducen la sensación de vacío y encajan bien en lotes de imágenes.",
+			"Esta página mantiene la implementación pequeña a propósito: el estado visual depende del navegador, así la lógica queda simple y predecible.",
+		],
+		exampleTitle: "Ejemplo de implementación",
+		exampleNote:
+			"La mecánica real es data-loaded más callbacks de Image. onLoadingComplete cambia el contenedor a data-loaded=\"true\" y onError hace lo mismo para que el skeleton no se quede colgado.",
+		exampleCode: `<div data-loaded=\"false\" className=\"group relative aspect-square overflow-hidden rounded-xl\">\n  <div className=\"absolute inset-0 bg-gray-300 transition-opacity group-data-[loaded=true]:opacity-0\" />\n  <Image\n    fill\n    src={\`/api/slow-image?seed=${12}\`}\n    alt=\"Random image 12\"\n    className=\"object-cover opacity-0 transition-opacity group-data-[loaded=true]:opacity-100\"\n    onLoadingComplete={(img) => {\n      img.closest(\"div\")?.setAttribute(\"data-loaded\", \"true\");\n    }}\n    onError={(img) => {\n      img.currentTarget.closest(\"div\")?.setAttribute(\"data-loaded\", \"true\");\n    }}\n  />\n</div>`,
+		overviewTitle: "¿Qué es este enfoque?",
+		overviewParagraphs: [
 			"Esta técnica usa el componente Image de Next.js combinado con atributos DOM (data-*) para controlar el estado de carga.",
 			"En lugar de usar estado de React, la imagen actualiza su contenedor padre una vez que ha terminado de cargar, permitiendo que el CSS maneje la transición.",
 		],
@@ -166,6 +196,15 @@ const es = {
 		reloadLabel: "Recargar página",
 		explanationTitle:
 			"Explicación de la galería de imágenes con un blur placeholder dinámico.",
+		heroTitle: "Por qué el blur se siente más cercano al resultado final",
+		heroParagraph:
+			"Esta demo usa un placeholder derivado de la imagen real, así que el estado de carga se conecta mejor con el contenido final y no se ve genérico. El base64 que sale del servidor va directo a blurDataURL.",
+		listTitle: "Qué demuestra esta configuración",
+		listItems: [
+			"blurDataURL derivado de la imagen real",
+			"Conjunto determinista de imágenes para comparar",
+			"Delay solo para hacer visible la transición durante la demo",
+		],
 		paragraphs: [
 			"Esta demo usa un placeholder generado a partir de la propia imagen en vez de un SVG genérico. La vista borrosa se deriva del recurso real, así que el estado de carga se siente mucho más cercano al contenido final.",
 			"Para simular una lista real de API, la página itera sobre un conjunto estable de ids de imagen y cada tarjeta obtiene su imagen correspondiente desde picsum.photos. Así la galería se comporta como un dataset predecible, pero los placeholders se calculan dinámicamente.",

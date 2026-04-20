@@ -13,7 +13,7 @@ const en = {
 		eyebrow: "Internationalized image demo",
 		title: "Responsive images, placeholders, and loading UX",
 		description:
-			"Start here if you want a practical guide to responsive images. The article compares Next.js and non-Next.js approaches, shows where placeholders help, and highlights the settings that prevent layout shift.",
+			"Start here if you want a practical guide to responsive images. The article focuses on Next.js Image features like fill and sizes, then shows how the same sizing rules can be reproduced with plain HTML and CSS on any stack.",
 		primaryCta: "Read the guide",
 		secondaryCta: "Jump to demos",
 		featureTitle: "What this post covers",
@@ -63,6 +63,18 @@ const en = {
 		closingTitle: "Start with the layout, then optimize delivery",
 		closingParagraph:
 			"That order is what makes image-heavy pages feel fast. First reserve space, then choose the right responsive source, and only after that decide whether a blur, color, or skeleton placeholder adds value.",
+		plaiceholderTitle: "Why we use Plaiceholder",
+		plaiceholderParagraph:
+			"Plaiceholder is useful because it works outside Next.js too. In this project I chose a native server-side implementation instead of the Next-specific integration because that package mutates Next.js config internally and the library is effectively feature-complete, so I wanted more control over the setup. The docs are here if you want to compare approaches.",
+		plaiceholderLinkLabel: "Read Plaiceholder docs",
+		plaiceholderLinkHref: "https://plaiceholder.co/docs",
+		recommendationTitle: "How to test the demos",
+		recommendationMobile:
+			"On mobile, use the reload button on each demo to clear the image cache before comparing states.",
+		recommendationDesktop:
+			"On desktop, use the same reload step. If the transition still feels too fast, slow the network in DevTools with a profile like Slow 3G.",
+		recommendationReason:
+			"We add a small artificial delay to image requests by default so placeholders, blur states, and loading transitions stay visible during demos. Without that delay, fast connections can make the effect almost impossible to notice.",
 	},
 	noPlaceholder: {
 		title: "Image Gallery - No placeholder",
@@ -87,6 +99,15 @@ const en = {
 		linkLabel: "See explanation",
 		reloadLabel: "Reload page",
 		explanationTitle: "Explanation of the image gallery with a static SVG.",
+		introTitle: "Why this fallback works",
+		introParagraphs: [
+			"A static SVG placeholder is a good middle ground when you want a visible loading state without fetching an extra asset. It keeps the card stable, gives the eye something to read, and avoids the blank feel of an empty image slot.",
+			"It is not content-aware, so it should stay simple. The strength of this approach is predictability: small payload, immediate paint, and almost no moving pieces.",
+		],
+		exampleTitle: "Practical Next.js example",
+		exampleNote:
+			"Use the same aspect ratio as the final media, keep sizes accurate, and feed blurDataURL with a compact SVG or generated data URL. This can live in a function like generateBlurPlaceholderSVG or in a static object when you want one fixed fallback for every image.",
+		exampleCode: `<div className=\"relative aspect-square overflow-hidden rounded-xl\">\n  <Image\n    src=\"/api/slow-image?seed=1\"\n    alt=\"Cover image\"\n    fill\n    sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    placeholder=\"blur\"\n    blurDataURL={PRODUCT_BLUR_DATA_URL}\n    className=\"object-cover\"\n  />\n</div>`,
 		paragraphs: [
 			"Compared to not having a placeholder, a static placeholder represents a meaningful improvement. Because it is pre-generated and embedded as a small base64-encoded SVG, it does not introduce additional network requests.",
 			"This means it appears instantly, providing immediate visual feedback without adding runtime overhead. From a performance and SEO perspective, this makes static placeholders a very efficient solution: they improve perceived loading speed while keeping the actual loading cost effectively unchanged.",
@@ -106,8 +127,17 @@ const en = {
 		metaTitle: "Gallery with Skeleton Loading | UX analysis",
 		metaDescription:
 			"Explore skeleton loading for images and trade-offs compared with other placeholder techniques.",
-		introTitle: "What is this approach?",
+		introTitle: "Why skeletons stay useful",
 		introParagraphs: [
+			"Skeletons are strong when the content shape matters more than a preview of the content itself. They reserve the frame, reduce the feeling of emptiness, and work well when images load in batches.",
+			"This page keeps the implementation small on purpose: browser state handles the transition, so the visual logic stays simple and predictable.",
+		],
+		exampleTitle: "Implementation example",
+		exampleNote:
+			"The real mechanism is data-loaded plus the image callbacks. onLoadingComplete flips the parent container to data-loaded=\"true\" and onError does the same so the skeleton never stays forever.",
+		exampleCode: `<div data-loaded=\"false\" className=\"group relative aspect-square overflow-hidden rounded-xl\">\n  <div className=\"absolute inset-0 bg-gray-300 transition-opacity group-data-[loaded=true]:opacity-0\" />\n  <Image\n    fill\n    src={\`/api/slow-image?seed=${12}\`}\n    alt=\"Random image 12\"\n    className=\"object-cover opacity-0 transition-opacity group-data-[loaded=true]:opacity-100\"\n    onLoadingComplete={(img) => {\n      img.closest(\"div\")?.setAttribute(\"data-loaded\", \"true\");\n    }}\n    onError={(img) => {\n      img.currentTarget.closest(\"div\")?.setAttribute(\"data-loaded\", \"true\");\n    }}\n  />\n</div>`,
+		overviewTitle: "What is this approach?",
+		overviewParagraphs: [
 			"This technique uses the Image component from Next.js combined with DOM attributes (data-*) to control the loading state.",
 			"Instead of using React state, the image updates its parent container once it has finished loading, allowing CSS to handle the transition.",
 		],
@@ -165,6 +195,15 @@ const en = {
 		reloadLabel: "Reload page",
 		explanationTitle:
 			"Explanation of the image gallery with a dynamic blur placeholder.",
+		heroTitle: "Why the blur feels closer to the final asset",
+		heroParagraph:
+			"This demo uses a placeholder derived from the real image, so the loading state feels connected to the final content instead of looking generic. The base64 result produced on the server is passed straight into blurDataURL.",
+		listTitle: "What this setup demonstrates",
+		listItems: [
+			"Real-image derived blurDataURL",
+			"A deterministic image set for comparison",
+			"Delay added only to make the transition visible during demo",
+		],
 		paragraphs: [
 			"This demo uses a placeholder generated from the actual image source instead of a generic SVG. The blur preview is derived from the real asset, which makes the loading state feel closer to the final content.",
 			"To simulate a real API list, the page iterates over a stable set of image ids and each tile fetches its corresponding image from picsum.photos. That way the gallery behaves like a predictable dataset, but the placeholders are still computed dynamically.",
