@@ -1,11 +1,7 @@
 import HeaderPage from "@/shared/ui/header-page";
-import { generateBlurPlaceholderSVG } from "@/shared/utils/utils";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getDictionary, hasLocale, Locale } from "../dictionaries";
 import ImageWithSkeleton from "@/shared/components/image-with-skeleton";
-
-const PRODUCT_BLUR_DATA_URL = generateBlurPlaceholderSVG();
 
 export async function generateMetadata({
 	params,
@@ -21,8 +17,8 @@ export async function generateMetadata({
 	const dictionary = await getDictionary(lang);
 
 	return {
-		title: dictionary.static.metaTitle,
-		description: dictionary.static.metaDescription,
+		title: dictionary.skeleton.metaTitle,
+		description: dictionary.skeleton.metaDescription,
 	};
 }
 

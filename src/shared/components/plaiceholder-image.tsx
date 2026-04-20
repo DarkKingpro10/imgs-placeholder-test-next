@@ -19,7 +19,7 @@ export default async function PlaiceholderImage({
 	return (
 		<ImageWithPlaceholder
 			{...rest}
-			{...(withTrick ? { src: imageSrc } : { src: `/api/slow-image/${seed}` })}
+			{...(withTrick ? { src: imageSrc } : { src: `/api/slow-image?seed=${seed}` })}
 			alt={alt}
 			blurDataURL={base64}
 		/>

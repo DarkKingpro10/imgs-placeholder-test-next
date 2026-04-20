@@ -20,6 +20,7 @@ export default async function LangHeader({ lang }: { lang: Locale }) {
           <LocaleSwitchLink
             locales={locales}
             currentLocale={lang}
+            ariaLabel={dictionary.nav.localeSwitcherLabel}
           />
         </div>
       </nav>

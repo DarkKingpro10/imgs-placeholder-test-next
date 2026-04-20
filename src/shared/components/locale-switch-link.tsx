@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 export default function LocaleSwitchLink({
 	locales,
 	currentLocale,
-	ariaLabel = "Seleccionar idioma",
+	ariaLabel = "Select language",
 }: {
 	locales?: readonly string[];
 	currentLocale?: string;

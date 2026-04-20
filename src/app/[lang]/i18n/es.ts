@@ -6,25 +6,77 @@ const es = {
 		dynamicPlaceholder: "Dinámica",
 		colorPlaceholder: "Dinámica color",
 		switchTo: "English",
-		skeleton: "Skeleton"
+		skeleton: "Skeleton",
+		localeSwitcherLabel: "Seleccionar idioma",
 	},
 	colorPlaceholder: {
+		title: "Galería - Placeholder por color",
+		description:
+			"Cada tarjeta usa el color dominante como fondo de carga hasta que llega la imagen final.",
+		explanationTitle: "Por qué ayuda un placeholder por color",
+		paragraphs: [
+			"Un placeholder por color es el fallback visual más ligero para una imagen. Reserva la forma de la tarjeta, pinta de inmediato el tono dominante y evita que la página se vea vacía mientras el asset sigue cargando.",
+			"Da menos información que un blur placeholder, pero suele ser la mejor decisión cuando quieres un layout estable con casi ningún coste extra de payload o procesamiento.",
+		],
+		compareParagraph:
+			"Frente a un blur placeholder, un placeholder por color es extremadamente ligero y no añade bytes inline. Da menos información sobre la imagen final, pero encaja bien cuando quieres retroalimentación visual mínima y el tratamiento de carga más liviano posible.",
 		note: "Nota: esta vista intenta generar placeholders con la librería 'plaiceholder'. En nuestras pruebas la librería devolvió únicamente el color dominante en lugar de una miniatura borrosa (resultado de un solo color). La librería se considera 'feature-complete' y no recibirá nuevas actualizaciones. Por ello implementamos un helper nativo `getBlurPlaceholderImage` en el servidor en lugar de exportar `export default withPlaiceholder(config);`. Si prefieres tocar internals de Next.js, usa el paquete específico para Next.js que provee la librería. <b>Recomiendo usar el helper nativo para tener mejor control y evitar acoplar tu código a una librería sin mantenimiento.</b>",
 		snippetTitle: "Ejemplo de implementación en servidor",
 	},
 	home: {
 		eyebrow: "Demo de imágenes internacionalizada",
-		title: "Compara estrategias de carga de imágenes en inglés o en español.",
+		title: "Imágenes responsivas, placeholders y experiencia de carga",
 		description:
-			"Esta galería muestra la diferencia entre cargar imágenes sin placeholder y usar un placeholder SVG estático. Cambia de idioma desde la navegación superior y las rutas seguirán localizadas.",
-		primaryCta: "Abrir galería sin placeholder",
-		secondaryCta: "Abrir galería con placeholder estático",
-		featureTitle: "Qué se traduce",
+			"Empieza aquí si quieres una guía práctica de imágenes responsivas. El artículo compara enfoques con Next.js y sin Next.js, muestra dónde ayuda un placeholder y destaca los ajustes que evitan saltos de layout.",
+		primaryCta: "Leer la guía",
+		secondaryCta: "Ir a las demos",
+		featureTitle: "Qué cubre este post",
 		features: [
-			"Etiquetas de navegación",
-			"Títulos y textos explicativos",
-			"Texto del botón de recargar",
+			"El aspect ratio primero, siempre",
+			"Cómo sizes cambia la entrega de imágenes en Next.js",
+			"Qué hacer cuando no usas Next.js",
 		],
+		metaTitle: "Guía de imágenes responsivas | Estrategias de placeholder",
+		metaDescription:
+			"Guía práctica para imágenes responsivas, sizes en Next.js y estrategias de placeholder que mejoran la percepción de carga sin romper la estabilidad del layout.",
+		introTitle: "Reserva espacio antes de que llegue la imagen",
+		introParagraphs: [
+			"Un flujo de imágenes responsivas empieza reservando espacio. Si el navegador conoce el aspect ratio desde el principio, puede pintar tarjetas, hero sections y galerías estables sin saltos de layout cuando el asset termina de cargar.",
+			"Los placeholders importan porque cierran la brecha entre el layout ya renderizado y los píxeles finales. No hacen que el archivo llegue antes, pero sí hacen que la interfaz se sienta intencional mientras descarga la imagen real.",
+		],
+		nextJsTitle: "Next.js: usa fill, sizes y ratios explícitos",
+		nextJsParagraph:
+			"Con Next.js, el patrón más fiable es envolver la imagen en un contenedor con aspect ratio definido, usar fill cuando la imagen deba cubrir el cuadro y describir el comportamiento en viewport con sizes para que el navegador elija el recurso correcto.",
+		nextJsTips: [
+			"Usa aspect ratio en el contenedor para que el navegador reserve el espacio correcto antes de que termine la carga.",
+			"Añade sizes siempre que el ancho renderizado cambie por breakpoint; ayuda al navegador a elegir la candidata adecuada en vez de descargar una demasiado grande.",
+			"Usa blur placeholder o placeholder por color cuando el peso visual de la imagen importa y quieres una transición de carga más suave.",
+		],
+		nextJsCodeTitle: "Ejemplo en Next.js",
+		nativeTitle: "Sin Next.js: aplica las mismas reglas",
+		nativeParagraph:
+			"Las mismas ideas valen fuera de Next.js. Reserva dimensiones con width y height o con CSS aspect-ratio, usa srcset y sizes para selección responsive y mantén loading lazy para contenido debajo del pliegue.",
+		nativeTips: [
+			"Define width y height o aspect-ratio para que el navegador calcule el layout antes de cargar la imagen.",
+			"Usa srcset junto con sizes para entrega responsive; sin eso, pantallas pequeñas suelen descargar archivos demasiado grandes.",
+			"Prefiere loading=\"lazy\" y decoding=\"async\" para imágenes no críticas, pero deja las de above-the-fold directas y predecibles.",
+		],
+		nativeCodeTitle: "Ejemplo con HTML puro",
+		placeholderTitle: "Dónde entra el placeholder",
+		placeholderParagraphs: [
+			"Un placeholder debe apoyar el layout, no reemplazarlo. Las mejores versiones respetan el mismo ratio que el asset final y mantienen al usuario orientado mientras llega la imagen real.",
+			"Si combinas placeholders con reglas sólidas de tamaño, obtienes una interfaz estable, mejor percepción de carga y menos salto visual cuando aparece el contenido.",
+		],
+		checklistTitle: "Checklist práctico",
+		checklistItems: [
+			"Reserva espacio con aspect ratio, width/height o ambos.",
+			"Usa sizes en Next.js cuando la imagen no tenga un ancho fijo en píxeles.",
+			"Elige placeholders que acompañen la densidad visual de la página.",
+			"Mide CLS y LCP en lugar de adivinar.",
+		],
+		closingTitle: "Primero el layout, luego la entrega",
+		closingParagraph:
+			"Ese orden es lo que hace que las páginas con muchas imágenes se sientan rápidas. Primero reservas espacio, luego eliges el origen responsive correcto y después decides si un blur, color o skeleton aporta valor.",
 	},
 	noPlaceholder: {
 		title: "Galería de imágenes - Sin placeholder",

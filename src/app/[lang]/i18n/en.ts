@@ -6,21 +6,63 @@ const en = {
 		dynamicPlaceholder: "Dynamic",
 		switchTo: "Español",
 		colorPlaceholder: "Dynamic color",
-		skeleton: "Skeleton"
+		skeleton: "Skeleton",
+		localeSwitcherLabel: "Select language",
 	},
 	home: {
 		eyebrow: "Internationalized image demo",
-		title: "Compare image loading strategies in English or Spanish.",
+		title: "Responsive images, placeholders, and loading UX",
 		description:
-			"This small gallery shows the difference between loading images without a placeholder and using a static SVG placeholder. Switch languages from the top navigation and the routes will stay localized.",
-		primaryCta: "Open no-placeholder gallery",
-		secondaryCta: "Open static placeholder gallery",
-		featureTitle: "What is translated",
+			"Start here if you want a practical guide to responsive images. The article compares Next.js and non-Next.js approaches, shows where placeholders help, and highlights the settings that prevent layout shift.",
+		primaryCta: "Read the guide",
+		secondaryCta: "Jump to demos",
+		featureTitle: "What this post covers",
 		features: [
-			"Navigation labels",
-			"Page headings and explanatory text",
-			"Reload button labels",
+			"Aspect ratio first, always",
+			"How sizes changes Next.js image output",
+			"What to do when you do not use Next.js",
 		],
+		metaTitle: "Responsive Image Guide | Placeholder Strategies",
+		metaDescription:
+			"Practical guidance for responsive images, Next.js sizes, and placeholder strategies that improve perceived performance without sacrificing layout stability.",
+		introTitle: "Build the layout before the image arrives",
+		introParagraphs: [
+			"A responsive image workflow starts with space reservation. If the browser knows the aspect ratio up front, it can render stable cards, hero sections, and galleries without layout shifts when the asset finally loads.",
+			"Placeholders matter because they bridge the gap between rendered layout and final pixels. They do not make the file arrive faster, but they make the interface feel intentional while the real image downloads.",
+		],
+		nextJsTitle: "Next.js: use fill, sizes, and explicit ratios",
+		nextJsParagraph:
+			"With Next.js, the most reliable pattern is to wrap the image in a container with a defined aspect ratio, use fill when the image should cover the box, and describe the viewport behavior with sizes so the browser can pick the right resource.",
+		nextJsTips: [
+			"Use aspect ratio on the wrapper so the browser reserves the correct space before the image finishes loading.",
+			"Add sizes whenever the rendered width changes across breakpoints; it helps the browser choose the right candidate instead of downloading something too large.",
+			"Use placeholder blur or a color placeholder when the visual weight of the image matters and you want a softer loading state.",
+		],
+		nextJsCodeTitle: "Next.js example",
+		nativeTitle: "Without Next.js: keep the same rules",
+		nativeParagraph:
+			"The same ideas apply outside Next.js. Reserve dimensions with width and height or CSS aspect-ratio, use srcset and sizes for responsive selection, and keep loading lazy for below-the-fold content.",
+		nativeTips: [
+			"Set width and height or aspect-ratio so the browser can calculate layout before the image loads.",
+			"Use srcset plus sizes for responsive delivery; without them, small screens often download oversized files.",
+			"Prefer loading=\"lazy\" and decoding=\"async\" for non-critical images, but keep above-the-fold assets direct and predictable.",
+		],
+		nativeCodeTitle: "Plain HTML example",
+		placeholderTitle: "Where placeholders fit",
+		placeholderParagraphs: [
+			"A placeholder should support the layout, not replace it. The best versions respect the same ratio as the final asset and keep the user oriented while the real image arrives.",
+			"If you combine placeholders with strong sizing rules, you get a stable interface, a better perceived load, and less visual jumping when content appears.",
+		],
+		checklistTitle: "Practical checklist",
+		checklistItems: [
+			"Reserve space with aspect ratio, width/height, or both.",
+			"Use sizes in Next.js whenever the image is not a fixed pixel width.",
+			"Choose placeholders that match the content density of the page.",
+			"Measure CLS and LCP instead of guessing.",
+		],
+		closingTitle: "Start with the layout, then optimize delivery",
+		closingParagraph:
+			"That order is what makes image-heavy pages feel fast. First reserve space, then choose the right responsive source, and only after that decide whether a blur, color, or skeleton placeholder adds value.",
 	},
 	noPlaceholder: {
 		title: "Image Gallery - No placeholder",
@@ -102,6 +144,16 @@ const en = {
 		],
 	},
 	colorPlaceholder: {
+		title: "Gallery - Color placeholder",
+		description:
+			"Each card uses the dominant color as a loading backdrop until the full image arrives.",
+		explanationTitle: "Why a color placeholder helps",
+		paragraphs: [
+			"A color placeholder is the lightest visual fallback you can use for an image. It reserves the shape of the card, paints the dominant tone immediately, and keeps the page from feeling empty while the asset is still loading.",
+			"It is less descriptive than a blur placeholder, but it is often the best trade-off when you want a stable layout with almost no extra payload or processing cost.",
+		],
+		compareParagraph:
+			"Compared with a blur placeholder, a color placeholder is extremely lightweight and adds no inline bytes. It gives less information about the final image, but it is a good fit when you want minimal visual feedback and the lightest possible loading treatment.",
 		note: "Note: this view attempts to generate placeholders with the 'plaiceholder' library. In some tests the library returns only the dominant color instead of a blurred thumbnail (single-color result). The library is feature-complete and won't receive further updates. For that reason we implemented a native server-side helper `getBlurPlaceholderImage` instead of exporting `export default withPlaiceholder(config);`. If you prefer to touch Next.js internals, use the Next-specific package provided by the library. I recommend using the native helper for better control and to avoid coupling your code to an unmaintained library.",
 		snippetTitle: "Server implementation example",
 	},

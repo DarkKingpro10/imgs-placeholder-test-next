@@ -28,7 +28,6 @@ export default async function LangLayout({
 
 	return (
 		<>
-			{/* header fetches dictionary server-side and renders localized labels */}
 			<LangHeader lang={lang} />
 			<main className="mx-auto my-4 max-w-5xl space-y-6 p-4">{children}</main>
 		</>

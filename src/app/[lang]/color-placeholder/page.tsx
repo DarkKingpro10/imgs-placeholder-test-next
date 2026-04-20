@@ -14,14 +14,8 @@ export async function generateMetadata({
 	const dictionary = await getDictionary(lang as Locale);
 
 	return {
-		title:
-			lang === "es"
-				? "Galería - Placeholder por color"
-				: "Gallery - Color placeholder",
-		description:
-			lang === "es"
-				? "Cada tarjeta usa el color dominante como fondo hasta que se carga la imagen."
-				: "Each tile uses the dominant color as background until the image loads.",
+		title: dictionary.colorPlaceholder.title,
+		description: dictionary.colorPlaceholder.description,
 	};
 }
 
@@ -38,7 +32,6 @@ export default async function ColorPlaceholder({
 			try {
 				const src = `https://picsum.photos/id/${seed}/200/300`;
 				const { color } = await getBlurPlaceholderImage(src);
-				console.log(`Color for seed ${seed}:`, color);
 				return color?.hex ?? "#080808";
 			} catch {
 				return "#e5e7eb";
@@ -46,25 +39,11 @@ export default async function ColorPlaceholder({
 		}),
 	);
 
-	const title =
-		lang === "es"
-			? "Galería - Placeholder por color"
-			: "Image Gallery - Color placeholder";
-	const description =
-		lang === "es"
-			? "Cada tarjeta muestra el color dominante como fondo mientras la imagen carga. Cuando la imagen termina de cargar, el color queda oculto bajo la imagen."
-			: "Each tile shows the dominant color as background while the image loads. Once the image finishes loading the color is hidden under the image.";
-
-	const compareParagraph =
-		lang === "es"
-			? "Comparado con un placeholder base64 (miniatura borrosa), el placeholder por color es extremadamente ligero y no añade bytes inline; sin embargo ofrece menos información visual sobre la imagen final. Es ideal cuando quieres feedback visual mínimo sin costear generación de miniaturas."
-			: "Compared to a base64 blur placeholder, a color placeholder is extremely lightweight and adds no inline bytes; however it conveys less visual information about the final image. It's ideal when you want minimal visual feedback without the cost of generating thumbnails.";
-
 	return (
 		<>
 			<HeaderPage
-				title={title}
-				description={description}
+				title={dictionary.colorPlaceholder.title}
+				description={dictionary.colorPlaceholder.description}
 				linkLabel={lang === "es" ? "Ver explicación" : "See explanation"}
 				reloadLabel={lang === "es" ? "Recargar página" : "Reload page"}
 			/>
@@ -89,24 +68,22 @@ export default async function ColorPlaceholder({
 				))}
 			</section>
 
-			<section id="explanation" className="space-y-4 mt-6">
-				<h2 className="text-3xl font-bold">
-					{lang === "es" ? "Explicación: Placeholder por color" : "Explanation: Color placeholder"}
-				</h2>
+			<section id="explanation" className="mt-6 space-y-4">
+				<h2 className="text-3xl font-bold">{dictionary.colorPlaceholder.explanationTitle}</h2>
 
-				{dictionary.static.paragraphs.map((p, i) => (
-					<p key={i} className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">{p}</p>
+				{dictionary.colorPlaceholder.paragraphs.map((paragraph, index) => (
+					<p key={index} className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">{paragraph}</p>
 				))}
 
-				<p className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">{compareParagraph}</p>
+				<p className="max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">{dictionary.colorPlaceholder.compareParagraph}</p>
 
 				{/* Nota tomada del diccionario */}
 				<div className="max-w-4xl">
 					<p className="mt-4 max-w-4xl leading-7 text-zinc-700 dark:text-zinc-300">{dictionary.colorPlaceholder.note}</p>
 
 					<h4 className="text-lg font-semibold mt-4 mb-2 text-fuchsia-700 dark:text-fuchsia-400">{dictionary.colorPlaceholder.snippetTitle}</h4>
-					<div className="relative bg-zinc-900 rounded-lg p-4 overflow-x-auto my-4">
-						<pre className="whitespace-pre-wrap break-words font-mono text-xs text-zinc-100">
+					<div className="relative mt-4 overflow-x-auto rounded-lg bg-zinc-900 p-4">
+						<pre className="whitespace-pre-wrap font-mono text-xs text-zinc-100">
 							<code>{`export async function getBlurPlaceholderImage(src) {
 	try {
 		const buffer = await fetch(src).then(async (res) => Buffer.from(await res.arrayBuffer()));
