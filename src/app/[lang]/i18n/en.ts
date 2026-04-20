@@ -5,6 +5,8 @@ const en = {
 		static: "Static",
 		dynamicPlaceholder: "Dynamic",
 		switchTo: "Español",
+		colorPlaceholder: "Dynamic color",
+		skeleton: "Skeleton"
 	},
 	home: {
 		eyebrow: "Internationalized image demo",
@@ -53,6 +55,56 @@ const en = {
 		metaDescription:
 			"Compare a static SVG placeholder with an empty loading state and see why the visual fallback helps.",
 	},
+	skeleton: {
+		title: "Gallery - Skeleton loading",
+		description:
+			"Each image shows a skeleton until it finishes loading, providing a consistent layout and visual feedback during loading.",
+		linkLabel: "See explanation",
+		reloadLabel: "Reload page",
+		metaTitle: "Gallery with Skeleton Loading | UX analysis",
+		metaDescription:
+			"Explore skeleton loading for images and trade-offs compared with other placeholder techniques.",
+		introTitle: "What is this approach?",
+		introParagraphs: [
+			"This technique uses the Image component from Next.js combined with DOM attributes (data-*) to control the loading state.",
+			"Instead of using React state, the image updates its parent container once it has finished loading, allowing CSS to handle the transition.",
+		],
+		howItWorksTitle: "How it works",
+		howItWorksList: [
+			"A skeleton layer is rendered on top of the image.",
+			"The container starts with data-loaded=\"false\".",
+			"When the image finishes loading, the attribute updates.",
+			"CSS transitions fade out the skeleton and reveal the image.",
+		],
+		visualHint: "This avoids React re-renders completely and delegates the visual state to the browser, making it efficient for large grids.",
+		prosTitle: "Advantages",
+		prosList: [
+			"No React state → fewer re-renders",
+			"Great for large image grids",
+			"Smooth loading experience",
+			"Simple and reusable",
+		],
+		tradeoffsTitle: "Trade-offs",
+		tradeoffsList: [
+			"No image preview (just skeleton)",
+			"Requires small DOM manipulation",
+			"Less rich than blur placeholders",
+		],
+		seoTitle: "SEO impact",
+		seoParagraphs: [
+			"This approach does not negatively affect SEO. The actual image is still rendered in the DOM, and search engines can crawl it normally as long as proper alt attributes are provided.",
+			"Since the skeleton is only a visual layer, it does not interfere with indexing. Additionally, using Next.js ensures optimized image delivery, which can positively impact Core Web Vitals like LCP.",
+		],
+		comparisonTitle: "When to use this",
+		comparisonParagraphs: [
+			"Ideal for dynamic content such as galleries, feeds, or dashboards where images are loaded frequently and performance matters.",
+			"If you need more visually accurate previews, consider blur placeholders or tools like Plaiceholder. For simplicity and scalability, skeleton loading is often the best trade-off.",
+		],
+	},
+	colorPlaceholder: {
+		note: "Note: this view attempts to generate placeholders with the 'plaiceholder' library. In some tests the library returns only the dominant color instead of a blurred thumbnail (single-color result). The library is feature-complete and won't receive further updates. For that reason we implemented a native server-side helper `getBlurPlaceholderImage` instead of exporting `export default withPlaiceholder(config);`. If you prefer to touch Next.js internals, use the Next-specific package provided by the library. I recommend using the native helper for better control and to avoid coupling your code to an unmaintained library.",
+		snippetTitle: "Server implementation example",
+	},
 	dynamicPlaceholder: {
 		title: "Image Gallery - Dynamic Placeholder",
 		description:
@@ -74,6 +126,9 @@ const en = {
 				intro: "For authoring and review, use DevTools network throttling (e.g. 'Slow 3G') or a manual browser delay to make the blur placeholder and transition visually apparent.",
 				trickSummary: "This demo intentionally serves the first set of images without artificial latency and the second set with a small, controlled delay so the blur placeholder is visible; without the delay the transition is often imperceptible on fast connections.",
 				howItWorks: "A blur placeholder is rendered first (typically a tiny base64-encoded image, 'blurDataURL') while the full-resolution image loads in the background. Once the real asset finishes loading, the placeholder is swapped out via a smooth transition (opacity/scale) to avoid jarring changes.",
+				// Notes about plaiceholder behavior and our decision
+				libraryNote: "Note: this demo references the 'plaiceholder' library for server-side placeholder generation. In some cases it returns only the dominant color instead of a blurred thumbnail, resulting in a single-color placeholder.",
+				implementationNote: "Decision: since 'plaiceholder' is feature-complete and unlikely to receive updates, we implemented `getBlurPlaceholderImage` natively on the server (example included) instead of exporting `export default withPlaiceholder(config);`. If you prefer to avoid touching Next.js internals, use the Next-specific package the library provides.",
 				bufferExplanation: "The Buffer holds the binary thumbnail server-side. Converting that Buffer to base64 and inlining it as a data URL lets the browser paint a visual placeholder immediately without extra network requests.",
 				evaluationTitle: "Should you use a placeholder library?",
 				advantages: [

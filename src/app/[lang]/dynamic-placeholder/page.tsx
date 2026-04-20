@@ -70,7 +70,7 @@ export async function getBlurPlaceholderImage(src) {
 							alt={`Random image ${seed}`}
 							className="object-cover transition-transform duration-300 ease-out hover:scale-105"
 							loading="lazy"
-							unoptimized
+							
 						/>
 					</div>
 				))}
@@ -126,6 +126,9 @@ export async function getBlurPlaceholderImage(src) {
 									<pre className="whitespace-pre-wrap break-words font-mono text-xs text-zinc-100"><code aria-label="server-snippet">{serverSnippet}</code></pre>
 								</div>
 								<p className="text-xs text-zinc-500 italic mb-0">{lang === "es" ? "Este fragmento muestra cómo se genera el blurDataURL en el backend para el placeholder." : "This snippet shows how to generate the blurDataURL on the backend for the placeholder."}</p>
+								{/* Nota traducida desde el diccionario */}
+								<p className="text-base leading-7 mt-4">{d.libraryNote}</p>
+								<p className="text-base leading-7 mt-2">{d.implementationNote}</p>
 							</section>
 
 							<section className="mb-8">

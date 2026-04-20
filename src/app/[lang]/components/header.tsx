@@ -13,6 +13,8 @@ export default async function LangHeader({ lang }: { lang: Locale }) {
           <NavLink href={`/${lang}/no-placeholder`}>{dictionary.nav.noPlaceholder}</NavLink>
           <NavLink href={`/${lang}/static`}>{dictionary.nav.static}</NavLink>
           <NavLink href={`/${lang}/dynamic-placeholder`}>{dictionary.nav.dynamicPlaceholder}</NavLink>
+          <NavLink href={`/${lang}/color-placeholder`}>{dictionary.nav.colorPlaceholder}</NavLink>
+          <NavLink href={`/${lang}/skeleton`}>{dictionary.nav.skeleton}</NavLink>
         </div>
         <div className="ml-auto flex flex-wrap gap-2">
           <LocaleSwitchLink

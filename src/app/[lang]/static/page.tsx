@@ -55,6 +55,7 @@ export default async function StaticPlaceholder({
 							className="object-cover transition-transform duration-300 ease-out hover:scale-105"
 							placeholder="blur"
 							blurDataURL={PRODUCT_BLUR_DATA_URL}
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 							loading="lazy"
 							unoptimized
 						/>

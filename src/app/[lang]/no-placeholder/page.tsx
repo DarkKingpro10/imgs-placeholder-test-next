@@ -51,6 +51,7 @@ export default async function Page({
 							src={`/api/slow-image?seed=${index}`}
 							alt={`Random image ${index}`}
 							className="object-cover transition-transform duration-300 ease-out hover:scale-105"
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 							unoptimized
 						/>
 					</div>

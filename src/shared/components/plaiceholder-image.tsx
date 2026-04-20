@@ -1,6 +1,6 @@
 import { getBlurPlaceholderImage } from "@/shared/utils/utils";
 import type { ImageProps } from "next/image";
-import ImageWithPlaceholder from "./ImageWithPlaceholder";
+import ImageWithPlaceholder from "./image-with-placeholder";
 
 type Props = Omit<ImageProps, "src" | "placeholder" | "blurDataURL"> & {
 	seed: number;
