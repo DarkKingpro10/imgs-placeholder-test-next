@@ -121,8 +121,10 @@ const es = {
 		],
 		exampleTitle: "Ejemplo práctico en Next.js",
 		exampleNote:
-			"Usa el mismo aspect ratio que la imagen final, conserva sizes precisos y alimenta blurDataURL con un SVG compacto o data URL generada. Esto puede vivir en una función como generateBlurPlaceholderSVG o en un objeto estático cuando quieres el mismo fallback para todas las imágenes.",
-		exampleCode: `<div className=\"relative aspect-square overflow-hidden rounded-xl\">\n  <Image\n    src=\"/api/slow-image?seed=1\"\n    alt=\"Imagen de portada\"\n    fill\n    sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    placeholder=\"blur\"\n    blurDataURL={PRODUCT_BLUR_DATA_URL}\n    className=\"object-cover\"\n  />\n</div>`,
+			"Usa el mismo aspect ratio que la imagen final, conserva sizes precisos y alimenta blurDataURL con un SVG compacto o data URL generada.",
+		implementationTitle: "Helper real usado en este proyecto",
+		implementationNote:
+			"Esta es la función exacta que construye el SVG incrustado. El ejemplo de arriba muestra cómo se consume en Image, mientras este bloque muestra el helper del servidor.",
 		paragraphs: [
 			"Frente a no tener placeholder, un placeholder estático supone una mejora clara. Como se pre-genera y se incrusta como un SVG pequeño codificado en base64, no introduce peticiones adicionales.",
 			"Eso hace que aparezca al instante y proporcione retroalimentación visual inmediata sin añadir sobrecarga en tiempo de ejecución. Desde el punto de vista del rendimiento y el SEO, es una solución muy eficiente: mejora la velocidad percibida sin cambiar prácticamente el coste real de carga.",

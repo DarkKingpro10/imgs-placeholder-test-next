@@ -5,6 +5,46 @@ import Image from "next/image";
 import { getDictionary, hasLocale, Locale } from "../dictionaries";
 
 const PRODUCT_BLUR_DATA_URL = generateBlurPlaceholderSVG();
+const STATIC_EXAMPLE_CODE = `<div className="relative aspect-square overflow-hidden rounded-xl">
+	<Image
+		src="/api/slow-image?seed=1"
+		alt="Cover image"
+		fill
+		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+		placeholder="blur"
+		blurDataURL={PRODUCT_BLUR_DATA_URL}
+		className="object-cover"
+	/>
+</div>`;
+
+const STATIC_IMPLEMENTATION_CODE = [
+	"export function generateBlurPlaceholderSVG({",
+	'  color1 = "#e5e7eb",',
+	'  color2 = "#9ca3af",',
+	'  color3 = "#6b7280",',
+	"}: {",
+	"  color1?: string;",
+	"  color2?: string;",
+	"  color3?: string;",
+	"} = {}) {",
+	"  const svg = `",
+	'    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">',
+	"      <defs>",
+	'        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">',
+	'          <stop offset="0%" stop-color="${color1}" />',
+	'          <stop offset="50%" stop-color="${color2}" />',
+	'          <stop offset="100%" stop-color="${color3}" />',
+	"        </linearGradient>",
+	"      </defs>",
+	'      <rect width="64" height="64" fill="url(#g)" />',
+	'      <circle cx="20" cy="20" r="8" fill="rgba(0,0,0,0.08)" />',
+	'      <path d="M5 45L20 30L30 40L40 30L60 50V64H5Z" fill="rgba(0,0,0,0.12)" />',
+	"    </svg>",
+	"  `;",
+	"",
+	'  return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;',
+	"}",
+].join("\n");
 
 export async function generateMetadata({
 	params,
@@ -94,7 +134,16 @@ export default async function StaticPlaceholder({
 							{dictionary.static.exampleTitle}
 						</h3>
 						<pre className="mt-4 overflow-x-auto rounded-2xl bg-black/40 p-4 text-[11px] leading-6 text-zinc-100 sm:text-xs">
-							<code>{dictionary.static.exampleCode}</code>
+							<code>{STATIC_EXAMPLE_CODE}</code>
+						</pre>
+						<h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.24em] text-zinc-400 sm:text-base">
+							{dictionary.static.implementationTitle}
+						</h3>
+						<p className="mt-3 text-sm leading-6 text-zinc-300">
+							{dictionary.static.implementationNote}
+						</p>
+						<pre className="mt-4 overflow-x-auto rounded-2xl bg-black/40 p-4 text-[11px] leading-6 text-zinc-100 sm:text-xs">
+							<code>{STATIC_IMPLEMENTATION_CODE}</code>
 						</pre>
 					</div>
 				</div>

@@ -106,8 +106,10 @@ const en = {
 		],
 		exampleTitle: "Practical Next.js example",
 		exampleNote:
-			"Use the same aspect ratio as the final media, keep sizes accurate, and feed blurDataURL with a compact SVG or generated data URL. This can live in a function like generateBlurPlaceholderSVG or in a static object when you want one fixed fallback for every image.",
-		exampleCode: `<div className=\"relative aspect-square overflow-hidden rounded-xl\">\n  <Image\n    src=\"/api/slow-image?seed=1\"\n    alt=\"Cover image\"\n    fill\n    sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    placeholder=\"blur\"\n    blurDataURL={PRODUCT_BLUR_DATA_URL}\n    className=\"object-cover\"\n  />\n</div>`,
+			"Use the same aspect ratio as the final media, keep sizes accurate, and feed blurDataURL with a compact SVG or generated data URL.",
+		implementationTitle: "Actual helper used in this project",
+		implementationNote:
+			"This is the exact function that builds the embedded SVG. The example above shows how it is consumed in Image, while this block shows the server helper itself.",
 		paragraphs: [
 			"Compared to not having a placeholder, a static placeholder represents a meaningful improvement. Because it is pre-generated and embedded as a small base64-encoded SVG, it does not introduce additional network requests.",
 			"This means it appears instantly, providing immediate visual feedback without adding runtime overhead. From a performance and SEO perspective, this makes static placeholders a very efficient solution: they improve perceived loading speed while keeping the actual loading cost effectively unchanged.",
