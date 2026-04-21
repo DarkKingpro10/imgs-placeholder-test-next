@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Imgs Placeholder — Blog técnico sobre placeholders de imagen
 
-## Getting Started
+Este repositorio contiene un blog técnico con demostraciones prácticas sobre técnicas de placeholder para imágenes en Next.js (blur, SVG estático, color dominante, skeleton y carga sin placeholder). El objetivo es servir como referencia práctica y educativa para equipos que quieren mejorar la experiencia de carga de imágenes.
 
-First, run the development server:
+## Estructura
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- `src/app/[lang]`: páginas por idioma (i18n). Cada carpeta incluye las demos: `static`, `dynamic-placeholder`, `skeleton`, `no-placeholder`, `color-placeholder`.
+- `src/shared`: componentes reutilizables (`image-with-skeleton.tsx`, utilidades en `utils.ts`, UI compartida).
+- `src/app/[lang]/i18n`: diccionarios `en.ts` y `es.ts` con copy y metadata.
+
+## Qué muestra el blog
+
+- Técnicas de placeholder estático con SVG embebido.
+- Blur placeholders generados desde la imagen (ej.: Plaiceholder) y cómo pasar el `base64` a `blurDataURL`.
+- Skeleton loading usando atributos `data-*` y callbacks de `Image` para evitar re-renderes innecesarios.
+- Comparativa de trade-offs (rendimiento, SEO, complejidad).
+
+## Cómo ejecutar (desarrollo)
+
+En este proyecto usamos `pnpm` como gestor de paquetes. En Windows, si ejecutas desde PowerShell o terminal integrada, puedes usar:
+
+```cmd
+cmd /c pnpm install
+cmd /c pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000` y navega a las rutas bajo `/en` o `/es` para ver las demos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Recomendaciones para probar las demos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- En móviles: usa el botón "Reload" en cada demo para limpiar la caché de imágenes antes de comparar estados.
+- En desktop: usa throttling en DevTools (ej. Slow 3G) si la transición de placeholder es demasiado rápida.
+- Las imágenes del demo tienen un pequeño delay artificial para que los placeholders sean visibles durante la demos; no uses ese delay en producción.
 
-## Learn More
+## Notas técnicas relevantes
 
-To learn more about Next.js, take a look at the following resources:
+- `generateBlurPlaceholderSVG` (en `src/shared/utils/utils.ts`) genera un SVG base64 que puede usarse como `blurDataURL`.
+- `getBlurPlaceholderImage` usa `plaiceholder` para generar `base64` y color, con fallback al SVG si falla.
+- `ImageWithSkeleton` (en `src/shared/components`) usa `data-loaded` y callbacks `onLoadingComplete`/`onError` para cambiar la presentación vía CSS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribuir
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Edita los textos en `src/app/[lang]/i18n/*.ts` para actualizar copy y metadata.
+- Añade nuevos demos en `src/app/[lang]` siguiendo la convención de rutas y el layout existente.
 
-## Deploy on Vercel
+Si quieres que añada una guía de estilo o scripts adicionales para CI, dime y lo incorporo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Actualizado: 20 de abril de 2026
