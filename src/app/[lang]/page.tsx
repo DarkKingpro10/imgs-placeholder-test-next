@@ -36,9 +36,9 @@ export default async function Page({
 	const dictionary = await getDictionary(lang);
 
 	return (
-		<article className="space-y-8">
-			<section className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-				<div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm sm:p-8 dark:border-zinc-800 dark:bg-zinc-950">
+		<article className="space-y-8 w-full max-w-screen-xl mx-auto px-2 sm:px-4">
+			<section className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+				<div className="rounded-3xl border border-zinc-200 bg-white p-4 sm:p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
 					<p className="text-xs font-medium uppercase tracking-[0.35em] text-zinc-500 sm:text-sm">
 						{dictionary.home.eyebrow}
 					</p>
@@ -73,8 +73,8 @@ export default async function Page({
 				</aside>
 			</section>
 
-			<section className="grid gap-6 lg:grid-cols-2">
-				<div className="rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
+			<section className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+				<div className="rounded-3xl border border-zinc-200 bg-white p-4 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
 					<p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-600 sm:text-sm dark:text-amber-400">
 						{dictionary.home.introTitle}
 					</p>
@@ -87,7 +87,7 @@ export default async function Page({
 					</div>
 				</div>
 
-				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-5 text-zinc-50 shadow-lg shadow-zinc-950/10 sm:p-6 dark:border-zinc-800">
+				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-4 sm:p-6 text-zinc-50 shadow-lg shadow-zinc-950/10 dark:border-zinc-800">
 					<h2 className="text-lg font-semibold sm:text-xl">
 						{dictionary.home.closingTitle}
 					</h2>
@@ -107,8 +107,8 @@ export default async function Page({
 				</div>
 			</section>
 
-			<section className="grid gap-6 lg:grid-cols-2">
-				<div className="rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
+			<section className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+				<div className="rounded-3xl border border-zinc-200 bg-white p-4 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
 					<h2 className="text-xl font-semibold text-zinc-950 sm:text-2xl dark:text-zinc-50">
 						{dictionary.home.nextJsTitle}
 					</h2>
@@ -125,7 +125,7 @@ export default async function Page({
 					</ul>
 				</div>
 
-				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-5 text-zinc-50 sm:p-6">
+				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-4 sm:p-6 text-zinc-50">
 					<h3 className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 sm:text-sm">
 						{dictionary.home.nextJsCodeTitle}
 					</h3>
@@ -145,8 +145,8 @@ export default async function Page({
 				</div>
 			</section>
 
-			<section className="grid gap-6 lg:grid-cols-2">
-				<div className="rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
+			<section className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+				<div className="rounded-3xl border border-zinc-200 bg-white p-4 sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
 					<h2 className="text-xl font-semibold text-zinc-950 sm:text-2xl dark:text-zinc-50">
 						{dictionary.home.nativeTitle}
 					</h2>
@@ -163,7 +163,7 @@ export default async function Page({
 					</ul>
 				</div>
 
-				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-5 text-zinc-50 sm:p-6">
+				<div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-4 sm:p-6 text-zinc-50">
 					<h3 className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400 sm:text-sm">
 						{dictionary.home.nativeCodeTitle}
 					</h3>
@@ -181,11 +181,11 @@ export default async function Page({
 				</div>
 			</section>
 
-			<section className="rounded-3xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/40">
+			<section className="rounded-3xl border border-zinc-200 bg-zinc-50 p-4 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/40 overflow-x-auto">
 				<h2 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50 sm:text-2xl">
 					{dictionary.home.placeholderTitle}
 				</h2>
-				<div className="mt-4 grid gap-4 text-sm leading-7 text-zinc-600 dark:text-zinc-400 lg:grid-cols-2">
+				<div className="mt-4 grid gap-4 grid-cols-1 text-sm leading-7 text-zinc-600 dark:text-zinc-400 lg:grid-cols-2">
 					{dictionary.home.placeholderParagraphs.map((paragraph) => (
 						<p key={paragraph}>{paragraph}</p>
 					))}

@@ -39,12 +39,12 @@ export default async function StaticPlaceholder({
 				linkLabel={dictionary.skeleton.linkLabel}
 				reloadLabel={dictionary.skeleton.reloadLabel}
 			/>
-			<section className="grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-4">
+			<section className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-xl mx-auto px-2">
 				{Array.from({ length: 12 }).map((_, index) => (
 					<ImageWithSkeleton key={index} seed={index} />
 				))}
 			</section>
-			<section id="explanation" className="space-y-8">
+			<section id="explanation" className="space-y-8 w-full max-w-screen-xl mx-auto px-2">
 				<div className="max-w-4xl space-y-4">
 					<h2 className="text-3xl font-bold text-zinc-950 dark:text-zinc-50">
 						{dictionary.skeleton.title}
@@ -54,7 +54,7 @@ export default async function StaticPlaceholder({
 					</p>
 				</div>
 
-				<div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+				<div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
 					<div className="space-y-4">
 						<h3 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50">
 							{dictionary.skeleton.overviewTitle}
@@ -84,7 +84,7 @@ export default async function StaticPlaceholder({
 					</div>
 				</div>
 
-				<div className="grid gap-6 md:grid-cols-2">
+				<div className="grid gap-6 grid-cols-1 md:grid-cols-2">
 					<div className="rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800">
 						<h3 className="mb-4 text-lg font-semibold text-emerald-600">
 							{dictionary.skeleton.prosTitle}
